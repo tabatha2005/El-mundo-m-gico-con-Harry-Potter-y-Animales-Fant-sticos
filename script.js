@@ -1008,6 +1008,33 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // --- Control de Música de Fondo de Harry Potter ---
+  const bgMusic = document.getElementById('bg-music');
+  const musicBtn = document.getElementById('music-toggle-btn');
+  if (musicBtn && bgMusic) {
+    bgMusic.volume = 0.4; // Volumen agradable de fondo al 40%
+
+    musicBtn.addEventListener('click', () => {
+      if (bgMusic.paused) {
+        bgMusic.play().then(() => {
+          musicBtn.innerHTML = '⏸️';
+          musicBtn.style.borderColor = 'var(--primary-gold)';
+          musicBtn.style.boxShadow = '0 0 12px var(--accent-glow)';
+          showToast('🎶 Reproduciendo música de Harry Potter');
+        }).catch(err => {
+          console.warn('Audio no disponible o bloqueado:', err);
+          showToast('⚠️ Coloca el archivo "musica.mp3" en la carpeta para escuchar la música');
+        });
+      } else {
+        bgMusic.pause();
+        musicBtn.innerHTML = '🎵';
+        musicBtn.style.borderColor = '';
+        musicBtn.style.boxShadow = '';
+        showToast('Música pausada');
+      }
+    });
+  }
+
   // Cerrar modal con tecla Escape o click fuera
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeMovieModal();

@@ -1,4 +1,4 @@
-<!DOCTYPE>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -48,6 +48,11 @@
         <!-- Botón de Audio Mágico -->
         <button id="sound-toggle-btn" class="btn-icon" title="Activar/Silenciar efectos sonoros mágicos">
           🔊
+        </button>
+
+        <!-- Botón de Música de Fondo -->
+        <button id="music-toggle-btn" class="btn-icon" title="Reproducir / Pausar Música de Harry Potter">
+          🎵
         </button>
       </div>
     </div>
@@ -343,6 +348,11 @@
       Desarrollado con magia, HTML5 moderno, CSS Glassmorphism y Web Audio API. ¡Hecho para brujas, magos y no-majas entusiastas!
     </p>
   </footer>
+
+  <!-- Reproductor de Música de Fondo de Harry Potter -->
+  <audio id="bg-music" loop preload="auto">
+    <source src="musica.mp3" type="audio/mpeg">
+  </audio>
 
   <!-- Scripts: Primero los datos, luego la lógica interactiva -->
   <script src="data.js"></script>
