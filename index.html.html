@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Mundo Mágico | Cronología de Harry Potter y Animales Fantásticos</title>
+  
+  <!-- Google Fonts: Fuentes temáticas de Hogwarts y legibilidad moderna -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Estilos CSS -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+</head>
+<body>
+
+  <!-- Canvas de estrellas y polvo de hadas luminoso -->
+  <canvas id="magic-canvas"></canvas>
+
+  <!-- Barra de Navegación y Encabezado Mágico -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="#hero" class="brand">
+        <span class="brand-icon">⚡</span>
+        <div>
+          <span class="brand-title">WIZARDING CHRONICLES</span>
+        </div>
+      </a>
+
+      <nav class="main-nav">
+        <a href="#cronologia" class="nav-link"><span>📜</span> Cronología</a>
+        <a href="#curiosidades" class="nav-link"><span>💡</span> Curiosidades</a>
+        <a href="#juegos" class="nav-link"><span>🎮</span> Juegos Mágicos</a>
+      </nav>
+
+      <div class="header-controls">
+        <!-- Selector Rápido de Casas de Hogwarts -->
+        <div class="house-selector" title="Elige tu casa de Hogwarts para cambiar el tema">
+          <button class="house-btn active" data-house-theme="default" onclick="applyHouseTheme('default')" title="Oro de Hogwarts">⚡</button>
+          <button class="house-btn" data-house-theme="gryffindor" onclick="applyHouseTheme('gryffindor')" title="Gryffindor">🦁</button>
+          <button class="house-btn" data-house-theme="slytherin" onclick="applyHouseTheme('slytherin')" title="Slytherin">🐍</button>
+          <button class="house-btn" data-house-theme="ravenclaw" onclick="applyHouseTheme('ravenclaw')" title="Ravenclaw">🦅</button>
+          <button class="house-btn" data-house-theme="hufflepuff" onclick="applyHouseTheme('hufflepuff')" title="Hufflepuff">🦡</button>
+        </div>
+
+        <!-- Botón de Audio Mágico -->
+        <button id="sound-toggle-btn" class="btn-icon" title="Activar/Silenciar efectos sonoros mágicos">
+          🔊
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Contenedor Principal de la Experiencia -->
+  <main class="content-container">
+
+    <!-- Sección Hero / Portada -->
+    <section id="hero" class="hero-section">
+      <span class="hero-subtitle">⚡ El Archivo Sagrado del Mundo Mágico ⚡</span>
+      <h1 class="hero-title">CRONOLOGÍA & UNIVERSO MÁGICO</h1>
+      <p class="hero-description">
+        Viaja en el tiempo desde las calles de Nueva York en 1926 con Newt Scamander hasta la Batalla final de Hogwarts en 1998. Descubre todas las películas ordenadas cronológicamente, secretos inéditos de filmación y desafía tus habilidades con nuestros juegos interactivos.
+      </p>
+      <div class="hero-actions">
+        <a href="#cronologia" class="btn-magic btn-magic-primary">
+          <span>📜</span> Explorar Películas Cronológicas
+        </a>
+        <a href="#juegos" class="btn-magic btn-magic-secondary">
+          <span>🎩</span> Jugar al Sombrero Seleccionador
+        </a>
+      </div>
+    </section>
+
+    <!-- Sección de Cronología de Películas -->
+    <section id="cronologia" style="scroll-margin-top: 5rem;">
+      
+      <!-- Barra de Filtros y Modos de Ordenación -->
+      <div class="timeline-controls-bar">
+        <div class="controls-row-top">
+          <!-- Toggle de Orden: Cronológico in-universe vs Año de estreno -->
+          <div class="order-toggle-group">
+            <button class="toggle-pill active" data-order="chronological">
+              <span>⏳</span> Orden Cronológico (1926 — 1998)
+            </button>
+            <button class="toggle-pill" data-order="release">
+              <span>🎬</span> Orden por Estreno en Cines (2001 — 2022)
+            </button>
+          </div>
+
+          <!-- Buscador en tiempo real -->
+          <div class="search-box-wrapper">
+            <span class="search-icon">🔍</span>
+            <input 
+              type="text" 
+              id="search-movie-input" 
+              class="search-input" 
+              placeholder="Buscar película, criatura, director o actor..."
+            >
+          </div>
+        </div>
+
+        <!-- Chips de Filtro por Saga -->
+        <div class="filter-tags-row">
+          <span style="font-size: 0.85rem; color: var(--text-muted); margin-right: 0.3rem;">Filtrar Saga:</span>
+          <button class="filter-chip active" data-saga="all">Todas las 11 Películas</button>
+          <button class="filter-chip" data-saga="fantastic-beasts">Animales Fantásticos (1926-1932)</button>
+          <button class="filter-chip" data-saga="harry-potter">Harry Potter (1991-1998)</button>
+        </div>
+      </div>
+
+      <!-- Contenedor dinámico de la línea de tiempo -->
+      <div id="timeline-container">
+        <!-- Generado dinámicamente con JavaScript desde data.js -->
+      </div>
+    </section>
+
+    <!-- Sección de Curiosidades y Datos Interesantes -->
+    <section id="curiosidades" class="trivia-section" style="scroll-margin-top: 5rem;">
+      <div class="section-header">
+        <span class="section-tag">Secretos del Pensadero</span>
+        <h2 class="section-title">Datos Curiosos & Cosas que No Sabías</h2>
+        <p class="section-desc">
+          Anécdotas detrás de cámaras, detalles ocultos entre los libros y la pantalla grande, y curiosidades del rodaje que sorprenden a los más fieles fans.
+        </p>
+      </div>
+
+      <!-- Banner de Dato Aleatorio con botón de hechizo -->
+      <div class="random-fact-banner">
+        <span class="fact-sparkles">✨</span>
+        <span class="fact-title-badge">🔮 Curiosidad Destacada del Día</span>
+        <p id="random-fact-text" class="fact-text">
+          "Alan Rickman fue la única persona en el mundo que conoció el verdadero destino y secretos de Severus Snape antes del rodaje de las primeras películas, gracias a que J.K. Rowling se lo susurró en privado."
+        </p>
+        <span id="random-fact-source" style="font-size: 0.82rem; color: var(--primary-gold);">
+          ⚡ Origen: Secretos de Hogwarts
+        </span>
+        <button class="btn-magic btn-magic-primary" onclick="showRandomFact()" style="margin-top: 0.5rem; font-size: 0.88rem; padding: 0.6rem 1.4rem;">
+          <span>🪄</span> Revelar Otro Dato Sorpresa
+        </button>
+      </div>
+
+      <!-- Grid de tarjetas de trivia por categorías -->
+      <div id="trivia-grid-container" class="trivia-grid">
+        <!-- Renderizado dinámicamente por script.js -->
+      </div>
+    </section>
+
+    <!-- Sección de Juegos Interactivos (Games Hub) -->
+    <section id="juegos" class="games-section" style="scroll-margin-top: 5rem;">
+      <div class="section-header">
+        <span class="section-tag">Sala de Menesteres</span>
+        <h2 class="section-title">Juegos Mágicos Interactivos</h2>
+        <p class="section-desc">
+          Pon a prueba tu espíritu de mago: averigua tu casa de Hogwarts, enfréntate a mortífagos en duelo, invoca a tu fiel Patronus o destila legendarias pociones.
+        </p>
+      </div>
+
+      <!-- Selector de Juegos -->
+      <div class="games-nav">
+        <button class="game-tab-btn active" data-game="sorting" onclick="switchGameTab('sorting')">
+          <span>🎩</span> 1. Sombrero Seleccionador
+        </button>
+        <button class="game-tab-btn" data-game="duel" onclick="switchGameTab('duel')">
+          <span>⚡</span> 2. Duelo de Hechizos & Trivia
+        </button>
+        <button class="game-tab-btn" data-game="patronus" onclick="switchGameTab('patronus')">
+          <span>🦌</span> 3. Descubre tu Patronus
+        </button>
+        <button class="game-tab-btn" data-game="potions" onclick="switchGameTab('potions')">
+          <span>🧪</span> 4. Laboratorio de Pociones
+        </button>
+      </div>
+
+      <!-- PANEL 1: Sombrero Seleccionador -->
+      <div id="game-panel-sorting" class="game-container active">
+        <div class="hat-game-intro">
+          <div class="hat-icon-large">🎩</div>
+          <h3 style="font-family: var(--font-serif); font-size: 1.8rem; margin-bottom: 0.5rem;">
+            La Ceremonia de Selección
+          </h3>
+          <p style="color: var(--text-muted); margin-bottom: 2rem;">
+            "No hay nada escondido en tu cabeza que el Sombrero Seleccionador no pueda ver..." Responde honestamente y el Sombrero decidirá tu verdadero hogar en Hogwarts.
+          </p>
+        </div>
+        
+        <div id="sorting-game-content">
+          <!-- Renderizado por script.js -->
+        </div>
+      </div>
+
+      <!-- PANEL 2: Duelo de Hechizos & Trivia -->
+      <div id="game-panel-duel" class="game-container">
+        <div style="text-align: center; margin-bottom: 1.5rem;">
+          <h3 style="font-family: var(--font-serif); font-size: 1.8rem; margin-bottom: 0.3rem;">
+            ⚔️ Club de Duelo Mágico
+          </h3>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">
+            Responde con el encantamiento o saber exacto para lanzar un hechizo y reducir la energía vital del mortífago antes de que él rompa tu escudo.
+          </p>
+        </div>
+
+        <div id="duel-game-content">
+          <!-- Renderizado por script.js -->
+        </div>
+      </div>
+
+      <!-- PANEL 3: Descubre tu Patronus -->
+      <div id="game-panel-patronus" class="game-container">
+        <div class="patronus-game-wrap">
+          <h3 style="font-family: var(--font-serif); font-size: 1.8rem; margin-bottom: 0.3rem;">
+            ✨ El Encantamiento Patronus
+          </h3>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">
+            El encantamiento defensivo más avanzado y puro contra las sombras. Cierra los ojos, concéntrate en tu memoria más luminosa y haz clic para conjurar.
+          </p>
+
+          <div id="patronus-orb" class="patronus-orb-glow">
+            🦌
+          </div>
+
+          <button id="patronus-cast-btn" class="btn-magic btn-magic-primary" onclick="invokePatronus()" style="font-size: 1rem; padding: 0.8rem 2rem;">
+            🪄 ¡Expecto Patronum!
+          </button>
+
+          <div id="patronus-result" class="patronus-result-card">
+            <!-- Revelado dinámicamente con animación -->
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL 4: Laboratorio de Pociones -->
+      <div id="game-panel-potions" class="game-container">
+        <div class="potions-lab">
+          <div style="text-align: center; margin-bottom: 1.5rem;">
+            <h3 style="font-family: var(--font-serif); font-size: 1.8rem; margin-bottom: 0.3rem;">
+              🧪 Las Mazmorras de Pociones
+            </h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">
+              "Puedo enseñarles a embotellar la fama, destilar la gloria y hasta ponerle una traba a la muerte..." Elige una receta y prepara la mezcla siguiendo los pasos al pie de la letra.
+            </p>
+          </div>
+
+          <!-- Selector de Recetas -->
+          <div style="display: flex; justify-content: center; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+            <button class="filter-chip active" onclick="selectPotionRecipe('felix-felicis')">✨ Felix Felicis</button>
+            <button class="filter-chip" onclick="selectPotionRecipe('polijugos')">🧪 Poción Multijugos</button>
+            <button class="filter-chip" onclick="selectPotionRecipe('amortentia')">💖 Amortentia</button>
+          </div>
+
+          <!-- Caldero visual y estado -->
+          <div class="cauldron-stage">
+            <h4 id="potion-recipe-name" style="font-family: var(--font-serif); color: var(--primary-gold); margin-bottom: 0.8rem;">
+              Felix Felicis (Avanzado)
+            </h4>
+            
+            <div class="cauldron-graphic">
+              <div id="cauldron-liquid" class="cauldron-liquid"></div>
+              <div class="cauldron-bubbles">🫧 🫧</div>
+            </div>
+
+            <div id="potion-step-text" style="margin-top: 1.2rem; font-size: 1rem; text-align: center; max-width: 650px; background: rgba(0,0,0,0.4); padding: 0.8rem 1.4rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1);">
+              <!-- Instrucción actual -->
+            </div>
+          </div>
+
+          <!-- Estante de Ingredientes y Acciones -->
+          <div style="margin-top: 2rem;">
+            <span style="font-size: 0.8rem; text-transform: uppercase; color: var(--primary-gold); letter-spacing: 0.1em; display: block; text-align: center;">
+              Estante de Ingredientes y Manipulación de Varita
+            </span>
+            <div class="potions-controls">
+              <button class="potion-action-btn" onclick="performPotionAction('ingredient', 'rocio-luna')">
+                <span class="btn-emoji">💧</span>
+                <span>Rocío de Luna</span>
+              </button>
+              <button class="potion-action-btn" onclick="performPotionAction('ingredient', 'huevo-ashwinder')">
+                <span class="btn-emoji">🥚</span>
+                <span>Huevo de Ashwinder</span>
+              </button>
+              <button class="potion-action-btn" onclick="performPotionAction('ingredient', 'crisopos')">
+                <span class="btn-emoji">🪲</span>
+                <span>Crisopos Fermentados</span>
+              </button>
+              <button class="potion-action-btn" onclick="performPotionAction('ingredient', 'piel-serpiente')">
+                <span class="btn-emoji">🐍</span>
+                <span>Piel de Boomslang</span>
+              </button>
+              <button class="potion-action-btn" onclick="performPotionAction('ingredient', 'cabello')">
+                <span class="btn-emoji">💇</span>
+                <span>Muestra de Cabello</span>
+              </button>
+              <button class="potion-action-btn" onclick="performPotionAction('ingredient', 'petalos-rosa')">
+                <span class="btn-emoji">🌹</span>
+                <span>Pétalos Nocturnos</span>
+              </button>
+              <button class="potion-action-btn" onclick="performPotionAction('ingredient', 'polvo-perla')">
+                <span class="btn-emoji">⚪</span>
+                <span>Polvo de Perla</span>
+              </button>
+              <button class="potion-action-btn" onclick="performPotionAction('action', 'remover-horario')">
+                <span class="btn-emoji">🔄</span>
+                <span>Remover Horario</span>
+              </button>
+              <button class="potion-action-btn" onclick="performPotionAction('action', 'remover-antihorario')">
+                <span class="btn-emoji">🔃</span>
+                <span>Remover Antihorario</span>
+              </button>
+              <button class="potion-action-btn" onclick="performPotionAction('action', 'reposar')">
+                <span class="btn-emoji">⏳</span>
+                <span>Dejar Reposar</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Modal Inmersivo de Detalles de Película -->
+  <div id="movie-modal" class="magic-modal-backdrop">
+    <div class="magic-modal">
+      <button class="modal-close-btn" onclick="closeMovieModal()" title="Cerrar ventana">✕</button>
+      <div id="modal-body-content">
+        <!-- Renderizado dinámicamente con JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast de Notificaciones Mágicas -->
+  <div id="magic-toast">⚡ Notificación mágica</div>
+
+  <!-- Pie de Página -->
+  <footer class="site-footer">
+    <p class="footer-quote">"Travesura Realizada." ⚡ (Mischief Managed)</p>
+    <p style="margin-bottom: 0.5rem;">
+      Universo Cinematográfico de Harry Potter y Animales Fantásticos creado por J.K. Rowling y Warner Bros. Pictures.
+    </p>
+    <p style="font-size: 0.78rem; opacity: 0.7;">
+      Desarrollado con magia, HTML5 moderno, CSS Glassmorphism y Web Audio API. ¡Hecho para brujas, magos y no-majas entusiastas!
+    </p>
+  </footer>
+
+  <!-- Scripts: Primero los datos, luego la lógica interactiva -->
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
